@@ -118,6 +118,7 @@ def extract_apk():
     path=""
     path=(str(output))[10:len(output)+1]
     command3 = "adb pull "+path+" osboxes@10.224.138.182:/home/osboxes/"   
+    os.system(command3)
     print(output,path)
     
 
