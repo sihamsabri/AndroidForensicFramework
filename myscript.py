@@ -26,6 +26,7 @@ def connection():
             raise Exception()
     except:
         print(colored("The phone is not rooted! It should be already rooted ",'red'))
+
 ##################################################################################
 def display():
     print()
@@ -36,6 +37,7 @@ def display():
     print("Phone Information: " )
     print("version : "+colored(str(version)[2:-3], 'green'))
     print("Product Model : "+colored(str(Product_model)[2:-3],'green'))
+
 display()    
 ########################This is an Introduction of the Framework###################
 
@@ -48,15 +50,14 @@ def introduction():
     print(colored("Before starting the extraction, make sure that: ",'blue'))
 
 def verification():    
-    print(colored("1-Your device and your machine are connected in the same network ",'green'))
-    print(colored("2-Mode USB Debbuging enabled in your phone",'green'))
-    print(colored("3-The Device and The Machine can ping each other.",'green'))
+    print(colored("1-Your device and your machine are connected in the same network;",'green'))
+    print(colored("2-Mode USB Debbuging enabled in your phone;",'green'))
+    print(colored("3-The Device and The Machine can ping each other;",'green'))
     print(colored("4-The Device is rooted!",'green'))
     
 
 ####################################################################################
 #################Function that gives an overview of the system######################
-
 def overview():
     print("")
     print(colored("====================================================================================================================================================================================================",'green'))
@@ -65,8 +66,8 @@ def overview():
     time.sleep(3)
     print(os.system(" adb shell ls "))
 
-###################################################################################
-#################Function that gives more details about a directory################
+####################################################################################
+#################Function that gives more details about a directory#################
 
 def more_details():
     try:
@@ -77,9 +78,9 @@ def more_details():
             print("Here are more details about the content of: "+Directory_name)
     except:
         print(colored('ERROR:Please tap the right name of the directory!','red'))
-more_details()
 
-####################################################################################
+###################################################################################
+
 #########Error: We need an incrementer to name images + a variable for image to extract
 
 def extraction(file,i):
@@ -100,26 +101,30 @@ extraction("/dev/block/loop15000000",1)#This is just a test!
 def extract_apk():
 
     command1 = "adb shell pm list packages | cut -d ':' -f2 "
-    
     print("")
     print(colored("========================================================================================================================================================================================================",'green'))
     print(colored("=======Here a full list of application packages : ======================================================================================================================================================",'green'))
     print(colored("========================================================================================================================================================================================================",'green'))
     print("")
     time.sleep(3)
-    
     os.system(command1)
-    
     print("")
 
-    package = input(colored("==Please enter the application package name you want to extract : ",'green'))
-    command2 = "adb shell pm path "+package 
-    output = subprocess.check_output(command2, shell=True)    
-    path=""
-    path=(str(output))[10:len(output)+1]
-    command3 = "adb pull "+path+" osboxes@10.224.138.182:/home/osboxes/"   
-    os.system(command3)
-    print(output,path)
+    try:
+
+        package = input(colored("==Please enter the application package name you want to extract : ",'green'))
+        command2 = "adb shell pm path "+package 
+        output = subprocess.check_output(command2, shell=True)    
+        path=""
+        path=(str(output))[10:len(output)+1]
+        command3 = "adb pull "+path+" ~ "  
+        os.system(command3)
+
+    except:
+
+        print("ERROR : It seems that you did not tap the right name of the pacakge!")
+        print(colored("ERROR DETAILS: ",'yellow'), sys.exc_info())
+        print(output,path)
     
 
 
@@ -134,7 +139,7 @@ print(var)
 #verification()
 #connection()
 #overview()
-extract_apk()
+#extract_apk()
 
 
 
@@ -171,4 +176,4 @@ while condition =="0":
         #com = "ip "+var
 #dir = os.system(com)
 #print(com)
-#####################################################Static Analysis###################################################################################
+#####################################################Static Analysis##################
