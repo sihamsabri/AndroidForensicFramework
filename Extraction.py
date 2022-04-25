@@ -34,15 +34,16 @@ def more_details():
 ###################################################################################
 def default_extraction():
     try:
-        command= "adb shell scp / osboxes@10.224.138.190:/home/osboxes"
+        os.system("adb root")
+        command= "adb pull /system/ /home/osboxes/ "
         if (os.system(command))!=0:
             raise Exception()
         else:
             print(colored("Extraction succeded!",'green'))
     except:
-        print("Make sure you have enough free space!")
+        print(" E Make sure you have enough free space!")
     
-#########Error: We need an incrementer to name images + a variable for image to extract
+########################################
 
 def extraction(file,i):
 
@@ -55,4 +56,5 @@ def extraction(file,i):
     except:
         print(colored('ERROR:Make sure that the name is correct and that you have enough space in your machine!','red'))
 
-extraction("/dev/block/loop15000000",1)#This is just a test!
+#extraction("/dev/block/loop15000000",1)#This is just a test!
+default_extraction()
