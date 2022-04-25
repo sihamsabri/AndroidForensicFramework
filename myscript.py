@@ -3,6 +3,59 @@ import sys
 import time
 from termcolor import colored
 import subprocess
+from androguard.core.bytecodes import apk
+from tabulate import tabulate
+import pandas as pd
+
+#######################
+
+def Certificate_Validation():
+    apk="/root/96462df95b266d6f775967e5aa798d09.apk"   
+    command = "jarsigner -verify -verbose -certs "+apk
+    output = subprocess.check_output(command, shell=True) 
+    C=""
+    limit=str(output)
+    position=limit.index("jar verified")
+    C=limit[position:-3]
+    L=list(str(C).split("\\n"))
+    for elm in L :
+        print(elm)
+
+Certificate_Validation()
+def test_androguard():
+    permissions=[]
+    Dangerous_Permissions = [ 'ACCESS_NETWORK_STATE','READ_CALENDAR','INTERNET', 'WRITE_CALENDAR', 'CAMERA', 'READ_CONTACTS', 'WRITE_CONTACTS', 
+                            'RECORD_AUDIO', 'READ_PHONE_NUMBERS', 'CALL_PHONE', 'ANSWER_PHONE_CALLS', 'SEND_SMS'] 
+
+    Normal_Permissions = ['ACCESS_NOTIFICATION_POLICY', 'ACCESS_WIFI_STATE', 'BLUETOOTH', 'BLUETOOTH_ADMIN', 'INTERNET', 
+                        'KILL_BACKGROUND_PROCESSES', 'MANAGE_OWN_CALLS', 'MODIFY_AUDIO_SETTINGS', 'SET_ALARM', 'SET_WALLPAPER', 'VIBRATE']
+    
+    a = apk.APK("/root/96462df95b266d6f775967e5aa798d09.apk")
+    pk_name = a.get_package()
+    L = a.get_permissions() 
+
+    for elm in L:
+        permissions.append(elm[19:])
+    LN=[]
+    LD=[]
+    for elm in permissions:
+        if elm in Dangerous_Permissions:
+            LD.append(elm)
+        else:
+            LN.append(elm)
+    print(colored("\n>========Full list of permissions: ",'green'),"\n\n  ",permissions)        
+    print(colored("\n>========Normal Permissions : ",'yellow'))
+    i=1
+    for elm in LN:
+        print("\n ",i,"=>",elm)
+        i=i+1
+    j=1
+    print(colored("\n>========Dangerous Permissions : ",'red'))
+    for elm in LD:
+        print("\n ",j,"=>",elm) 
+        j=j+1
+    print("")
+test_androguard()
 ####################################Extraction##############################################
 ####################################Connection##############################################
 
@@ -28,7 +81,30 @@ def connection():
         print(colored("The phone is not rooted! It should be already rooted ",'red'))
 
 ##################################################################################
-def display():
+def display_options():
+
+    print("")
+    print(colored(">===============================================================================================<",'blue'))
+    print(colored(">==========================<Here are the options of the framework>==============================<",'green'))
+    print(colored(">===============================================================================================<\n",'blue'))
+    print(colored("  [1] : Default Extraction (The framework will extract the whole system of the phone)\n",'green'))
+    print(colored("  [2] : Configured Extraction (You can choose which part to extract)\n",'green'))
+    print(colored("  [3] : Extract an apk file\n",'green'))
+    print(colored("  [4] : Static Analysis => Extract Static Characteristics of an apk\n",'green'))
+    print(colored("  [5] : Static Analysis => Reverse Engineer an app\n",'green'))
+    print(colored("  [6] : Dynamic Analysis\n",'green'))
+    print(colored(">================================================================================================<",'blue'))
+    print(colored(">================================================================================================<",'green'))
+    print(colored(">================================================================================================<\n",'blue'))
+    option=input(colored("  => To choose an option, tap its number : ",'yellow'))
+    print(colored("",'green'))
+    print(colored("",'green'))
+    print(colored("",'green'))
+
+
+#################################################################################
+def display_info():
+
     print()
     command= "adb shell getprop ro.build.version.release"
     command1= "adb shell getprop ro.product.model"
@@ -38,32 +114,40 @@ def display():
     print("version : "+colored(str(version)[2:-3], 'green'))
     print("Product Model : "+colored(str(Product_model)[2:-3],'green'))
 
-display()    
+   
 ########################This is an Introduction of the Framework###################
 
 def introduction():
-    
-    print(colored("========================Welcome to Hence Framework for Mobile Forensics============================",'blue'))
-    print(colored("===================================================================================================",'blue'))
 
-    print(colored("===================================================================================================",'blue'))
-    print(colored("Before starting the extraction, make sure that: ",'blue'))
+    print("")
+    print(colored(">================================================================================================<",'blue'))    
+    print(colored(">========================Welcome to Hence Framework for Mobile Forensics=========================<",'green'))
+    print(colored(">================================================================================================<\n",'blue'))
+    #print(colored(">==================================================================================================<",'blue'))
+    print(colored("Before starting, make sure that: \n",'green'))
 
 def verification():    
-    print(colored("1-Your device and your machine are connected in the same network;",'green'))
-    print(colored("2-Mode USB Debbuging enabled in your phone;",'green'))
-    print(colored("3-The Device and The Machine can ping each other;",'green'))
-    print(colored("4-The Device is rooted!",'green'))
+    print(colored(" [1] => Your device and your machine are connected in the same network;\n",'green'))
+    print(colored(" [2] => Mode USB Debbuging enabled in your phone;\n",'green'))
+    print(colored(" [3] => The Device and The Machine can ping each other;\n",'green'))
+    print(colored(" [4] => The Device is rooted!\n",'green'))
+    print(colored(" [4] => You installed the tools indicated in requirements.txt file.\n",'green'))
+    print(colored(" [5] => An emulator/virtual machine(ip address) in case you want to do dynamic analysis.\n",'green'))
+    print(colored(" NB: The requirements [1],[2],[3], and [4] are necessary just for extraction! ",'yellow'))
     
+introduction()
+verification()
+display_options()
 
 ####################################################################################
 #################Function that gives an overview of the system######################
+
 def overview():
     print("")
     print(colored("====================================================================================================================================================================================================",'green'))
     print(colored("===================Here is an Overview of the system================================================================================================================================================",'green'))
     print("")
-    time.sleep(3)
+    time.sleep(1)
     print(os.system(" adb shell ls "))
 
 ####################################################################################
@@ -80,7 +164,16 @@ def more_details():
         print(colored('ERROR:Please tap the right name of the directory!','red'))
 
 ###################################################################################
-
+def default_extraction():
+    try:
+        command= "adb shell scp / osboxes@10.224.138.190:/home/osboxes"
+        if (os.system(command))!=0:
+            raise Exception()
+        else:
+            print(colored("Extraction succeded!",'green'))
+    except:
+        print("Make sure you have enough free space!")
+    
 #########Error: We need an incrementer to name images + a variable for image to extract
 
 def extraction(file,i):
@@ -155,25 +248,8 @@ print(var)
 
 condition = "0"
 
-while condition =="0":
-
-
-    print("---------------If you want to extract a file, please tap 1---------------")
-    print("---------------If you want more details about files tap 2----------------")
-    choice = input ("Please tap the number of your choice : ")
-    
-    print(choice)
-
-    if choice == "1":
-
-        Path= input("Please select the absolute path of the file you want to extract :  ")
-        condition = 1
-        
-    else:
-
-        print("else")
 
         #com = "ip "+var
 #dir = os.system(com)
 #print(com)
-#####################################################Static Analysis##################
+#####################################################Static Analysis#################
