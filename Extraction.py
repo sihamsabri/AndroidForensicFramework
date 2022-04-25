@@ -60,13 +60,10 @@ def extraction(file,i):
 #default_extraction()
 
 ####################Code
-
+j = 1
+Choice = 0
 ext = True
 while ext == True :
-
-    #print(colored(">============================================================<",'green'))
-    #print(colored(">========================<Extraction>========================<",'green'))
-    #print(colored(">============================================================<\n",'green'))
 
     print(colored(">========================<Extraction Options: >==============<\n",'green'))
     print(colored(" [1] => Default Extraction : The whole system will be extracted \n",'white'))
@@ -81,24 +78,42 @@ while ext == True :
         if Choice == 1:
             print(colored(" Your Choice => [1]: Default Extraction ",'yellow'))
             default_extraction()
-            ext = False
+            ext = True
 
         elif Choice == 2:
-            overview()
-            more_details()
-            #extraction(file,i)
-            print("Choice 2")
-            ext = False
+
+            i=1
+            while i!=0:
+                overview()
+                more_details()
+                qst = input("\n => To go to Extraction Tap 1 !  \n")
+                if qst=="1":
+                    print(colored("!!! Go To Extraction !!!",'yellow'))
+                    To_extract=str(input(colored("Tap the full path of the part you want to extract : ",'yellow')))
+                    extraction(To_extract,j)
+                    j=j+1
+                    qst1=input("\n => To continue with details and Extraction tap 1: ")
+                    if qst1 == "1":
+                        i=1
+                    else:
+                        ext = True
+                else:
+                    i=1
+                    print(colored("!!! More Details !!!",'yellow'))
+            
+            print(colored("\n ==> Finished With Detailed Extraction !!!\n",'yellow'))
+            ext = True
 
         elif Choice == 3:
             print("Choice 3")
-            ext = False
+            ext = True
 
         elif Choice == 0:
             print("home")
             ext = False
         else: 
             print(colored("\n => !!! The available options are : [0], [1], [2], and [3]. There is no option for :",'yellow'), Choice, "\n")
+
     except ValueError :
 
         print(colored("\n !!! SYNTAX ERROR : Please Tap the right number of the option from the list below !!! \n",'yellow'))
