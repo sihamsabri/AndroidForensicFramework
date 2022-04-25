@@ -57,4 +57,56 @@ def extraction(file,i):
         print(colored('ERROR:Make sure that the name is correct and that you have enough space in your machine!','red'))
 
 #extraction("/dev/block/loop15000000",1)#This is just a test!
-default_extraction()
+#default_extraction()
+
+####################Code
+
+ext = True
+while ext == True :
+
+    #print(colored(">============================================================<",'green'))
+    #print(colored(">========================<Extraction>========================<",'green'))
+    #print(colored(">============================================================<\n",'green'))
+
+    print(colored(">========================<Extraction Options: >==============<\n",'green'))
+    print(colored(" [1] => Default Extraction : The whole system will be extracted \n",'white'))
+    print(colored(" [2] => Extraction : You can choose which directory to extract \n",'white'))
+    print(colored(" [3] => Extract an APK file \n",'white'))
+    print(colored(" [0] => To come back to home options \n",'white'))
+
+    try: 
+
+        Choice = int(input(colored("Tap the number of your choice : \n",'green')))
+    
+        if Choice == 1:
+            print(colored(" Your Choice => [1]: Default Extraction ",'yellow'))
+            default_extraction()
+            ext = False
+
+        elif Choice == 2:
+            overview()
+            more_details()
+            #extraction(file,i)
+            print("Choice 2")
+            ext = False
+
+        elif Choice == 3:
+            print("Choice 3")
+            ext = False
+
+        elif Choice == 0:
+            print("home")
+            ext = False
+        else: 
+            print(colored("\n => !!! The available options are : [0], [1], [2], and [3]. There is no option for :",'yellow'), Choice, "\n")
+    except ValueError :
+
+        print(colored("\n !!! SYNTAX ERROR : Please Tap the right number of the option from the list below !!! \n",'yellow'))
+        ext = True
+        
+            
+
+
+
+
+
