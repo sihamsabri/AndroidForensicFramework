@@ -59,7 +59,38 @@ def extraction(file,i):
 #extraction("/dev/block/loop15000000",1)#This is just a test!
 #default_extraction()
 
-####################Code
+#################################################
+
+def extract_apk():
+
+    command1 = "adb shell pm list packages | cut -d ':' -f2 "
+    print("")
+    print(colored(">==================================================================================================================<",'green'))
+    print(colored(">=======<Here a full list of application packages : >==============================================================<",'green'))
+    print(colored(">==================================================================================================================<",'green'))
+    print("")
+    time.sleep(3)
+    os.system(command1)
+    print("")
+
+    try:
+
+        package = input(colored("==Please enter the application package name you want to extract : ",'green'))
+        command2 = "adb shell pm path "+package 
+        output = subprocess.check_output(command2, shell=True)    
+        path=""
+        path=(str(output))[10:len(output)+1]
+        command3 = "adb pull "+path+" ~ "  
+        os.system(command3)
+
+    except:
+
+        print("ERROR : It seems that you did not tap the right name of the pacakge!")
+        print(colored("ERROR DETAILS: ",'yellow'), sys.exc_info())
+        print(output,path)
+
+####################Code############################
+
 j = 1
 Choice = 0
 ext = True
@@ -96,6 +127,7 @@ while ext == True :
                     if qst1 == "1":
                         i=1
                     else:
+                        i=0
                         ext = True
                 else:
                     i=1
@@ -105,8 +137,18 @@ while ext == True :
             ext = True
 
         elif Choice == 3:
-            print("Choice 3")
-            ext = True
+            j=1
+            while j!=0:
+
+                extract_apk()
+                print(colored("!!! Apk Extracted !!!",'yellow'))
+                qst= input("\n => To Continue with Apk Extraction Tap 1: ")
+                if qst =="1":
+                    j=1
+                else:
+                    j=0
+                    print(colored("\n ==> Going Home Page ==> \n",'yellow'))
+                    ext = True
 
         elif Choice == 0:
             print("home")
