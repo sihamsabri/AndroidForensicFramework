@@ -12,8 +12,8 @@ import pandas as pd
 
 def overview():
     print("")
-    print(colored("====================================================================================================================================================================================================",'green'))
-    print(colored("===================Here is an Overview of the system================================================================================================================================================",'green'))
+    print(colored("====================================================================================================================================================",'green'))
+    print(colored("===================Here is an Overview of the system================================================================================================",'green'))
     print("")
     time.sleep(1)
     print(os.system(" adb shell ls "))
@@ -50,9 +50,11 @@ def extraction(file,i):
     try:
 
         command="adb shell 'dd if="+file+"' > X"+str(i)+".img"
+
         if os.system(command) != 0:
             raise Exception('Make sure that the name of the file to extract is correct')  
-
+        else:
+            print("image X",i,".img ",colored(" Extracted !!!",'yellow'))
     except:
         print(colored('ERROR:Make sure that the name is correct and that you have enough space in your machine!','red'))
 
@@ -96,7 +98,7 @@ Choice = 0
 ext = True
 while ext == True :
 
-    print(colored(">========================<Extraction Options: >==============<\n",'green'))
+    print(colored("\n>========================<Extraction Options: >==============<\n",'green'))
     print(colored(" [1] => Default Extraction : The whole system will be extracted \n",'white'))
     print(colored(" [2] => Extraction : You can choose which directory to extract \n",'white'))
     print(colored(" [3] => Extract an APK file \n",'white'))
