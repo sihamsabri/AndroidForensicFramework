@@ -18,7 +18,7 @@ def overview():
     time.sleep(1)
     print(os.system(" adb shell ls "))
 
-####################################################################################
+
 #################Function that gives more details about a directory#################
 
 def more_details():
@@ -32,6 +32,7 @@ def more_details():
         print(colored('ERROR:Please tap the right name of the directory!','red'))
 
 ###################################################################################
+
 def default_extraction():
     try:
         os.system("adb root")
@@ -139,16 +140,16 @@ while ext == True :
             ext = True
 
         elif Choice == 3:
-            j=1
-            while j!=0:
+            m=1
+            while m!=0:
 
                 extract_apk()
                 print(colored("!!! Apk Extracted !!!",'yellow'))
                 qst= input("\n => To Continue with Apk Extraction Tap 1: ")
                 if qst =="1":
-                    j=1
+                    m=1
                 else:
-                    j=0
+                    m=0
                     print(colored("\n ==> Going Home Page ==> \n",'yellow'))
                     ext = True
 
