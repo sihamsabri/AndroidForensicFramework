@@ -1,22 +1,22 @@
 # AndroidForensicFramework
 
-General Architecture of the Framework:
+General Architecture of the Framework:\n
 
-The main options:
-[1]: Extraction
-[2]: Static Analysis
-[3]: Dynamic Analysis
+The main options:\n
+[1]: Extraction\n
+[2]: Static Analysis\n
+[3]: Dynamic Analysis\n
 
-Part1 => Extraction:
-For Extraction Phase we'll have three options:
-[1]: Default Extraction => The whole system of the phone will be extracted
-[2]: Detailed Extraction => The user can choose which part to extract
-[3]: APK Extraction
-[0]: Home
-
-
-Part2 => Static Analysis:
+Part1 => Extraction:\n
+For Extraction Phase we'll have three options:\n
+[1]: Default Extraction => The whole system of the phone will be extracted\n
+[2]: Detailed Extraction => The user can choose which part to extract\n
+[3]: APK Extraction\n
+[0]: Home\n
 
 
-Part3 => Dynamic Analysis:
+Part2 => Static Analysis:\n
+
+
+Part3 => Dynamic Analysis:\n
 
