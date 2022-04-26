@@ -23,7 +23,9 @@ def overview():
 
 def more_details():
     try:
-        Directory_name = input("==================Please chose the directory you want to get more details about it : ")
+        Directory_name = ""
+        while Directory_name =="":
+            Directory_name = input("==================Please chose the directory you want to get more details about it : ")
         if os.system("adb shell ls -l -R /"+Directory_name) !=0:
             raise Exception("")
         else:
@@ -36,7 +38,8 @@ def more_details():
 def default_extraction():
     try:
         os.system("adb root")
-        command= "adb pull /system/ /home/osboxes/ "
+        
+        command= "adb pull /storage/ /home/osboxes/ "
         if (os.system(command))!=0:
             raise Exception()
         else:
@@ -46,16 +49,19 @@ def default_extraction():
     
 ########################################
 
-def extraction(file,i):
+def extraction(file):
 
     try:
+        
+        
+        os.system("adb root")
+        command="adb pull "+file+" /home/osboxes/Framework/ "
+        #command="adb shell 'dd if="+file+"' > X"+str(i)+".img"
 
-        command="adb shell 'dd if="+file+"' > X"+str(i)+".img"
-
-        if os.system(command) != 0:
+        if (os.system(command)) != 0:
             raise Exception('Make sure that the name of the file to extract is correct')  
         else:
-            print("image X",i,".img ",colored(" Extracted !!!",'yellow'))
+            print(colored(" Extracted !!!",'yellow'))
     except:
         print(colored('ERROR:Make sure that the name is correct and that you have enough space in your machine!','red'))
 
@@ -67,34 +73,38 @@ def extraction(file,i):
 def extract_apk():
 
     command1 = "adb shell pm list packages | cut -d ':' -f2 "
+
     print("")
     print(colored(">==================================================================================================================<",'green'))
     print(colored(">=======<Here a full list of application packages : >==============================================================<",'green'))
     print(colored(">==================================================================================================================<",'green'))
     print("")
-    time.sleep(3)
+    time.sleep(2)
     os.system(command1)
     print("")
-
+    package=""
     try:
-
-        package = input(colored("==Please enter the application package name you want to extract : ",'green'))
+        
+        while package == "" :
+            package = str(input(colored("==> Please enter the right name of the package you want to extract ",'yellow')))
+            
         command2 = "adb shell pm path "+package 
         output = subprocess.check_output(command2, shell=True)    
         path=""
         path=(str(output))[10:len(output)+1]
-        command3 = "adb pull "+path+" ~ "  
+        command3 = "adb pull "+path+" /home/osboxes/Framework/ "  
         os.system(command3)
+        print(colored("\n !!!!! APK Extracted , Check [/home/osboxes/Framework/] out !!! \n",'yellow'))
+            
 
     except:
 
-        print("ERROR : It seems that you did not tap the right name of the pacakge!")
-        print(colored("ERROR DETAILS: ",'yellow'), sys.exc_info())
-        print(output,path)
-
+        print(colored("\n ERROR : It seems that you did not tap the right name of the pacakge!",'yellow'))
+        print(colored("\n ERROR DETAILS: ",'yellow'), sys.exc_info())
+            
 ####################Code############################
 
-j = 1
+
 Choice = 0
 ext = True
 while ext == True :
@@ -123,9 +133,11 @@ while ext == True :
                 qst = input("\n => To go to Extraction Tap 1 !  \n")
                 if qst=="1":
                     print(colored("!!! Go To Extraction !!!",'yellow'))
-                    To_extract=str(input(colored("Tap the full path of the part you want to extract : ",'yellow')))
-                    extraction(To_extract,j)
-                    j=j+1
+                    To_extract=""
+                    while To_extract=="":
+                        To_extract=str(input(colored("Tap the full path of the part you want to extract : ",'yellow')))
+                    extraction(To_extract)
+                
                     qst1=input("\n => To continue with details and Extraction tap 1: ")
                     if qst1 == "1":
                         i=1
@@ -140,11 +152,12 @@ while ext == True :
             ext = True
 
         elif Choice == 3:
+            print(colored(" Your Choice => [3] : Apk Extraction ",'yellow'))
             m=1
             while m!=0:
 
                 extract_apk()
-                print(colored("!!! Apk Extracted !!!",'yellow'))
+                #print(colored("!!! Apk Extracted , Check your current directory out !!!",'yellow'))
                 qst= input("\n => To Continue with Apk Extraction Tap 1: ")
                 if qst =="1":
                     m=1
