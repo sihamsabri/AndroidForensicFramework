@@ -125,28 +125,37 @@ while ext == True :
             ext = True
 
         elif Choice == 2:
-
+            print(colored(" Your Choice => [1] : Detailed Extraction \n",'yellow'))
             i=1
             while i!=0:
                 overview()
-                more_details()
-                qst = input("\n => To go to Extraction Tap 1 !  \n")
-                if qst=="1":
-                    print(colored("!!! Go To Extraction !!!",'yellow'))
-                    To_extract=""
-                    while To_extract=="":
-                        To_extract=str(input(colored("Tap the full path of the part you want to extract : ",'yellow')))
-                    extraction(To_extract)
-                
-                    qst1=input("\n => To continue with details and Extraction tap 1: ")
-                    if qst1 == "1":
-                        i=1
-                    else:
-                        i=0
-                        ext = True
+                qst0=input(colored("\n => Tap 0 To back to Extraction Options \n => Press Any key To continue \n",'yellow'))
+
+                if qst0=="0":
+                    break
+
                 else:
-                    i=1
-                    print(colored("!!! More Details !!!",'yellow'))
+
+                    more_details()
+                    qst = input(colored("\n => Tap 0 to back to Extraction Options \n => Tap 1 to extract a Directory  \n => Press any key to continue with phone details \n  ",'yellow'))
+                    if qst=="1":
+                        print(colored("!!! Going To Extraction !!!",'yellow'))
+                        To_extract=""
+                        while To_extract=="":
+                            To_extract=str(input(colored("Tap the full path of the part you want to extract : ",'yellow')))
+                        extraction(To_extract)
+                
+                        qst1=input(colored("\n => Tap 1 To continue with details and Extraction :\n => Press Any key to back to Extraction Options \n",'yellow'))
+                        if qst1 == "1":
+                            i=1
+                        else:
+                            i=0
+                            ext = True
+                    elif qst=="0":
+                        break
+                    else:
+                        i=1
+                        print(colored("!!! More Details !!!",'yellow'))
             
             print(colored("\n ==> Finished With Detailed Extraction !!!\n",'yellow'))
             ext = True
@@ -158,7 +167,7 @@ while ext == True :
 
                 extract_apk()
                 #print(colored("!!! Apk Extracted , Check your current directory out !!!",'yellow'))
-                qst= input("\n => To Continue with Apk Extraction Tap 1: ")
+                qst= input(colored("\n => Press Any key to back to Extraction Options \n => To Continue with Apk Extraction Tap 1: \n",'yellow'))
                 if qst =="1":
                     m=1
                 else:
