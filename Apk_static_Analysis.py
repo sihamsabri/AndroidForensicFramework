@@ -4,8 +4,8 @@ import time
 from termcolor import colored
 import subprocess
 from androguard.core.bytecodes import apk
-from tabulate import tabulate
-import pandas as pd
+#from tabulate import tabulate
+#import pandas as pd
 
 ###########################################################################
 
@@ -18,53 +18,41 @@ def Certificate_Validation():
     position=limit.index("jar verified")
     C=limit[position:-3]
     L=list(str(C).split("\\n"))
+
     for elm in L :
         print(elm)
 
-Certificate_Validation()
+#Certificate_Validation()
 ##########################################################################
 
-def test_androguard():
+def Permissions_Classification():
 
-    permissions=[]
 
-    Dangerous_Permissions = ['READ_CALENDAR','WRITE_CALENDAR','CAMERA','READ_CONTACTS','WRITE_CONTACTS','GET_ACCOUNTS','ACCESS_FINE_LOCATION',
-                            'ACCESS_COARSE_LOCATION','RECORD_AUDIO','READ_PHONE_STATE','READ_PHONE_NUMBERS','CALL_PHONE','ANSWER_PHONE_CALLS',
-                            'READ_CALL_LOG','WRITE_CALL_LOG','ADD_VOICEMAIL','USE_SIP','PROCESS_OUTGOING_CALLS','BODY_SENSORS','SEND_SMS',
-                            'RECEIVE_SMS','READ_SMS','RECEIVE_WAP_PUSH','RECEIVE_MMS','READ_EXTERNAL_STORAGE','WRITE_EXTERNAL_STORAGE',
-                            'ACCESS_MEDIA_LOCATION','ACCEPT_HANDOVER','ACCESS_BACKGROUND_LOCATION','ACTIVITY_RECOGNITION']
-
-    Normal_Permissions = ['ACCESS_LOCATION_EXTRA_COMMANDS','ACCESS_NETWORK_STATE','ACCESS_NOTIFICATION_POLICY','ACCESS_WIFI_STATE','BLUETOOTH',
-                            'BLUETOOTH_ADMIN','BROADCAST_STICKY','CHANGE_NETWORK_STATE','CHANGE_WIFI_MULTICAST_STATE','CHANGE_WIFI_STATE','DISABLE_KEYGUARD',
-                            'EXPAND_STATUS_BAR','GET_PACKAGE_SIZE','INSTALL_SHORTCUT','INTERNET','KILL_BACKGROUND_PROCESSES','MODIFY_AUDIO_SETTINGS','NFC',
-                            'READ_SYNC_SETTINGS','READ_SYNC_STATS','RECEIVE_BOOT_COMPLETED','REORDER_TASKS','REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
-                            'REQUEST_INSTALL_PACKAGES','SET_ALARM','SET_TIME_ZONE','SET_WALLPAPER','SET_WALLPAPER_HINTS','TRANSMIT_IR','UNINSTALL_SHORTCUT',
-                            'USE_FINGERPRINT','VIBRATE','WAKE_LOCK','WRITE_SYNC_SETTINGS']
     
     a = apk.APK("/home/osboxes/Framework/96462df95b266d6f775967e5aa798d09.apk")
-    pk_name = a.get_package()
-    L = a.get_permissions() 
+    print(colored("\n APK Validation ",'yellow'),a.is_valid_APK())
+    print(colored("\n App name: ",'yellow'),a.get_app_name())
+    print(colored("\n PAckage name : ",'yellow'),a. get_package())
+    print(colored("\n This apk contains the following files: ",'yellow'),a.get_files())
 
-    for elm in L:
-        permissions.append(elm[19:])
-    LN=[]
-    LD=[]
-    for elm in permissions:
-        if elm in Dangerous_Permissions:
-            LD.append(elm)
-        else:
-            LN.append(elm)
-    print(colored("\n>========Full list of permissions: ",'green'),"\n\n  ",permissions)        
-    print(colored("\n>========Normal Permissions : ",'yellow'))
-    i=1
-    for elm in LN:
-        print("\n ",i,"=>",elm)
-        i=i+1
-    j=1
-    print(colored("\n>========Dangerous Permissions : ",'red'))
-    for elm in LD:
-        print("\n ",j,"=>",elm) 
-        j=j+1
+    print(colored("\n<===> Detailed Description of Permissions: <===>\n",'yellow'))
+    D=a.get_details_permissions()
+    for i in D :
+        print(" => ",colored(i[19:],'green')," : ",D[i],"\n")
+
+    print(colored("\n Activities : ",'yellow'),a.get_activities())
+    print(colored("\n Android Version Code ",'yellow'),a.get_androidversion_code())
+    print(colored("\n Android Version name ",'yellow'),a.get_androidversion_name())
+    #print(a.get_effective_target_sdk_version())
+    print(colored("\n Libraries: ",'yellow'),a.get_libraries())
+    print(colored("\n MAin Activities :",'yellow'),a.get_main_activity())
+    print(colored("\n Receivers: ",'yellow'),a. get_receivers())
+    print(colored("\n Permissions of third party apps: ",'yellow'),a.get_requested_third_party_permissions())
+    print(colored("\n Services: ",'yellow'),a.get_services())
+    print(colored("\n Signature :",'yellow'),a.get_signatures())
+    print(colored("\n Does the app require touch screen? ",'yellow'),a.is_androidtv())
+    print(colored("\n The app is build for TV? ",'yellow'),a.is_leanback())
+    print(colored("\n The App is Signed? ",'yellow'),a. is_signed())
     print("")
 
-test_androguard()
+Permissions_Classification()
