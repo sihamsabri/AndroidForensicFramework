@@ -2,3 +2,5 @@ ADB
 python3
 androguard
 ssh
+tcpdump
+
