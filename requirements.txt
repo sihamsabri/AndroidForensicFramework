@@ -3,4 +3,5 @@ python3
 androguard
 ssh
 tcpdump
+pip3 install art==5.6
 
