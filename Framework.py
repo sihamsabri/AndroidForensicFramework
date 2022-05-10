@@ -1,6 +1,7 @@
+from dynamic import *
 from Connection import *
-from Apk_Dynamic_Analysis import *
-from Introduction import *
+#from Apk_Dynamic_Analysis import *
+#from Introduction import *
 from Apk_static_Analysis import *
 from Extraction import *
 import os
@@ -15,17 +16,31 @@ UserChoice=""
 Framework=True
 
 while Framework:
+    import os
+    import time 
 
-    print("\n [1] Extraction \n")
-    print("\n [2] Static Analysis \n")
-    print("\n [3] Dynamic Analysis \n")
-    print("\n [0] Exit \n")
+    from pyfiglet import Figlet
+
+    f = Figlet(font='slant')
+    word = ' Forensics Framework'
+    curr_word = ''
+    #for char in word:
+        #os.system('reset') #assuming the platform is linux, clears the screen
+       # curr_word += char;
+    print (colored(f.renderText(word),'yellow'))
+        
+    time.sleep(1)
+    print("\n Option [1] Extraction \n")
+    print("\n Option [2] Static Analysis \n")
+    print("\n Option [3] Dynamic Analysis \n")
+    print("\n Option [0] Exit \n")
 
     while UserChoice=="":
-        UserChoice=input("Please Choose your Option!")
+        UserChoice=input("Please Choose your Option Number ! ")
 
     if UserChoice =="2":
-        
+
+        print("!!! Static Analysis !!!")
         Static=True
 
         while Static==True:
@@ -51,8 +66,45 @@ while Framework:
                     break
 
     elif UserChoice=="3":
+
         print("!!!Dynamic Analysis!!!")
-        Framework=False
+
+        add=""
+
+        try:
+
+            while add=="":
+                add=input("please enter your emulator address!")
+            print(colored("\n !!!Connection!!! \n",'yellow'))
+            connection(add)
+            apk=""
+            while apk=="":
+                apk=input("Please enter the whole path of your Apk file to be intstalled : ")
+            print(colored("\n !!!Installation!!! \n",'yellow'))
+            installation(apk)
+            print(colored("\n ==<Information About the Installed Package>== \n",'yellow'))
+            time.sleep(2)
+            package_Detailed_Information(apk)
+            print(colored("\n !!! Memory Usage !!!\n",'yellow'))
+            time.sleep(2)
+            dump(apk)
+            print(colored("\n !!! CPU Information !!! \n",'yellow'))
+            time.sleep(2)
+            cpu_information()
+            print(colored("\n !!! Battery Usage By The Application !!! \n",'yellow'))
+            time.sleep(2)
+            battery_information(apk)
+            print(colored("\n !!! Processes Stattus !!! \n",'yellow'))
+            time.sleep(2)
+            proc_information(apk)
+            print(colored("\n !!! Network Capture !!! \n",'yellow'))
+            time.sleep(2)
+            network_capture(add)
+            Framework=False
+
+        except:
+            print("Emulator not found!")
+            Frameework=False
 
     elif UserChoice=="1":
 
