@@ -1,6 +1,8 @@
 # AndroidForensicFramework
 
 General Architecture of the Framework:\n
+![image](https://user-images.githubusercontent.com/67846060/167617304-1d224b79-13a6-4a64-ae30-e0141e08d588.png)
+
 
 The main options:\n
 [1]: Extraction\n
