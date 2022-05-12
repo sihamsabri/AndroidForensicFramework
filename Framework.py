@@ -7,11 +7,14 @@ from Extraction import *
 import os
 import sys
 import time
+#from colored import fg, bg, attr
 from termcolor import colored
+#import colored
 import subprocess
 from androguard.core.bytecodes import apk
 
 ####Code############################
+#print ('%s%s Hello World !!! %s' % (fg('white'), bg('yellow'), attr('reset')))
 UserChoice=""
 Framework=True
 
