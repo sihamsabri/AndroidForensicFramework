@@ -43,7 +43,7 @@ while Framework:
     print("\n",colored(" ===--->",'blue'),"[0] Exit \n")
     print(colored("\n< NB : This Framework is for Android Systems >\n",'yellow'))
     time.sleep(1)
-    print("Before starting please fill your information to be added to the final report of the forensics analysis ")
+    print("Before starting please fill in your information to add to the final report of the forensics analysis ")
     #Reporter Information
     time.sleep(1)
     First_name=""
@@ -223,6 +223,12 @@ while Framework:
                 print(colored("\n !!! SYNTAX ERROR : Please Tap the right number of the option from the list below !!! \n",'yellow'))
                 ext = True
                 Framework=False
-    else:
+    elif UserChoice=="0":
         print("finished!")
         Framework=False
+    else: 
+        print("\n\nThere is no option for ",UserChoice)
+        UserChoice=""
+        Framework=True
+        print("\n\n !!!Wait!!! \n")
+        time.sleep(4)
