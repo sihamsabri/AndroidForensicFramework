@@ -19,6 +19,9 @@ UserChoice=""
 Framework=True
 
 while Framework:
+
+    #Start Welcome
+    print("\nWelcome to: \n")
     import os
     import time 
 
@@ -27,19 +30,37 @@ while Framework:
     f = Figlet(font='slant')
     word = ' Forensics Framework'
     curr_word = ''
-    #for char in word:
-        #os.system('reset') #assuming the platform is linux, clears the screen
-       # curr_word += char;
-    print (colored(f.renderText(word),'yellow'))
-        
+    print (colored(f.renderText(word),'blue'))
+    print("                                                         Copyright 2022 © By Henceforth \n")
+    print("\n Here are The Options Offered By <",colored("-Forensics Framework-",'blue'),"> :\n")    
     time.sleep(1)
-    print("\n Option [1] Extraction \n")
-    print("\n Option [2] Static Analysis \n")
-    print("\n Option [3] Dynamic Analysis \n")
-    print("\n Option [0] Exit \n")
+    #fin Welcome
 
+    #Display Options
+    print("\n",colored(" ===--->",'blue'),"[1] Extraction       ---> system extraction, Apk extraction, and memory dump \n")
+    print("\n",colored(" ===--->",'blue'),"[2] Static Analysis  ---> from a given .apk file, you will be able to extract static characteristics such as permissions and their classification, signature, certificate, etc.\n")
+    print("\n",colored(" ===--->",'blue'),"[3] Dynamic Analysis ---> runs an .apk file in a sandbox and extract its traces in the system such as network capture, CPU Usage, Battery stats, etc. \n")
+    print("\n",colored(" ===--->",'blue'),"[0] Exit \n")
+    print(colored("\n< NB : This Framework is for Android Systems >\n",'yellow'))
+    time.sleep(1)
+    print("Before starting please fill your information to be added to the final report of the forensics analysis ")
+    #Reporter Information
+    time.sleep(1)
+    First_name=""
+    while First_name=="":
+        First_name=input("\nFirst Name : ")
+    time.sleep(1)
+    Last_name=""
+    while Last_name=="":
+        Last_name=input("\nLast Name : ")
+    time.sleep(1)
+    Gmail=""
+    while Gmail=="":
+        Gmail=input("\nYour Mail:  ")
+
+    #Give hand to the user to choose
     while UserChoice=="":
-        UserChoice=input("Please Choose your Option Number ! ")
+        UserChoice=input("\n\nPlease Choose your Option Number ! ")
 
     if UserChoice =="2":
 
@@ -71,9 +92,11 @@ while Framework:
     elif UserChoice=="3":
 
         print("!!!Dynamic Analysis!!!")
-
+        period=""
+        while period=="":
+            period=input(colored("\n Please enter the period of the dynamic analysis \n ",'yellow'))
+        
         add=""
-
         try:
 
             while add=="":
@@ -85,23 +108,29 @@ while Framework:
                 apk=input("Please enter the whole path of your Apk file to be intstalled : ")
             print(colored("\n !!!Installation!!! \n",'yellow'))
             installation(apk)
-            print(colored("\n ==<Information About the Installed Package>== \n",'yellow'))
-            time.sleep(2)
+            #print(colored("\n ==<Information About the Installed Package>== \n",'yellow'))
+            print(colored("\n ===---===---===---===---===---===---===---===---===---===",'blue'))
+            print(colored(" ===---===---===Captures will start after ===---===---=== ",'green'),period,"secondes ")
+            print(colored(' ===---===---===---===---===---===---===---===---===---===\n','blue'))
+            time.sleep(int(period))
+        
+            print(colored("\n ===---=== Information About The Installed Package ===---===\n",'yellow'))
+            time.sleep(4)
             package_Detailed_Information(apk)
             print(colored("\n !!! Memory Usage !!!\n",'yellow'))
-            time.sleep(2)
+            time.sleep(4)
             dump(apk)
             print(colored("\n !!! CPU Information !!! \n",'yellow'))
-            time.sleep(2)
+            time.sleep(4)
             cpu_information()
             print(colored("\n !!! Battery Usage By The Application !!! \n",'yellow'))
-            time.sleep(2)
+            time.sleep(4)
             battery_information(apk)
             print(colored("\n !!! Processes Stattus !!! \n",'yellow'))
-            time.sleep(2)
+            time.sleep(4)
             proc_information(apk)
             print(colored("\n !!! Network Capture !!! \n",'yellow'))
-            time.sleep(2)
+            time.sleep(4)
             network_capture(add)
             Framework=False
 
