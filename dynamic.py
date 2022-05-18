@@ -1,4 +1,5 @@
 import os
+from datetime import *
 import sys
 from androguard.core.bytecodes import apk
 import subprocess
@@ -16,7 +17,7 @@ def installation(apk):
     l=apk.split("/")
     install=" adb shell pm install --user "+userID[2:len(userID)-3]+" /data/local/tmp/"+l[len(l)-1]
     os.system(install)
-installation("/home/osboxes/Framework/bootevent.apk")
+#installation("/home/osboxes/Framework/bootevent.apk")
 
 MyApk="/home/osboxes/Framework/bootevent.apk"
 
@@ -39,7 +40,7 @@ def system_calls(MyApk):
     pID=pid(MyApk)
     command="adb shell strace -p "+pID+" -c"
     os.system(command)
-system_calls(MyApk)
+#system_calls(MyApk)
 
 #############dump#############################
 def dump(MyApk):
@@ -58,7 +59,7 @@ def cpu_information():
 ###############battery_usage#################
 def battery_information(MyApk):
     package_name=package_apk(MyApk)
-    command="$ adb shell dumpsys batterystats --charged "+package_name
+    command=" adb shell dumpsys batterystats --charged "+package_name
     os.system(command)
 
 ##############proc stat#######################
@@ -75,13 +76,22 @@ def package_Detailed_Information(MyApk):
 
 #######################Network Traffic: 10 packets by default!##################
 def network_capture(android_ip):
-    try:
-        capture="sudo tcpdump -i eth0 -c10 -nn -XX src "+android_ip
-        if (os.system(capture))!=0:
-            raise Exception
-    except:
-        print("ERROR: tcpdump is not installed!")
+    #try:
+    date=str(datetime.now())
+    fil="capture"+date+".pcap"
+    os.system(("touch "+fil))
+    #print(output)
+    #print(date)
+    capture = "sudo tcpdump -i eth0 -c10 -nn -XX src "+android_ip
+    output =subprocess.check_output(capture,shell=True)
+    os.system(("echo "+str(output)+" >> "+fil))
+    #if (
+    capture="sudo tcpdump "
+    os.system(capture)
+        #raise Exception
+    #except:
+        #print("ERROR: tcpdump is not installed!")
 
-#network_capture("10.5.7.29")
+network_capture("10.224.138.42")
 
 ################################################################################
