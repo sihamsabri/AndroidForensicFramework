@@ -94,7 +94,7 @@ while Framework:
         print("!!!Dynamic Analysis!!!")
         period=""
         while period=="":
-            period=input(colored("\n Please enter the period of the dynamic analysis \n ",'yellow'))
+            period=input(colored("\n Please enter the period of the dynamic analysis (in secondes)\n ",'yellow'))
         
         add=""
         try:
