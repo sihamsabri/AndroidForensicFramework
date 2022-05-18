@@ -80,17 +80,12 @@ def network_capture(android_ip):
     date=str(datetime.now())
     fil="capture"+date+".pcap"
     os.system(("touch "+fil))
-    #print(output)
-    #print(date)
     capture = "sudo tcpdump -i eth0 -c10 -nn -XX src "+android_ip
     output =subprocess.check_output(capture,shell=True)
     os.system(("echo "+str(output)+" >> "+fil))
     #if (
     capture="sudo tcpdump "
     os.system(capture)
-        #raise Exception
-    #except:
-        #print("ERROR: tcpdump is not installed!")
 
 network_capture("10.224.138.42")
 
