@@ -1,7 +1,7 @@
 # AndroidForensicFramework
 
 General Architecture of the Framework:\n
-![image](https://user-images.githubusercontent.com/67846060/169253236-858b106c-c709-48df-b7d3-7d36171c43ce.png)
+![image](https://user-images.githubusercontent.com/67846060/169253588-e2c73170-9cb4-486a-99a1-bbae3ef64f53.png)
 
 
 The main options:\n
