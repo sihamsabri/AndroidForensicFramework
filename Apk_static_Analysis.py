@@ -24,12 +24,14 @@ def Certificate_Validation():
 
 #Certificate_Validation()
 ##########################################################################
+ 
+#MyApk="/home/osboxes/Desktop/bootevent.apk"
 
-def Permissions_Classification():
+def Permissions_Classification(MyApk):
 
 
     
-    a = apk.APK("/home/osboxes/Framework/96462df95b266d6f775967e5aa798d09.apk")
+    a = apk.APK(MyApk)
     print(colored("\n APK Validation ",'yellow'),a.is_valid_APK())
     print(colored("\n App name: ",'yellow'),a.get_app_name())
     print(colored("\n PAckage name : ",'yellow'),a. get_package())
@@ -45,7 +47,7 @@ def Permissions_Classification():
     print(colored("\n Android Version name ",'yellow'),a.get_androidversion_name())
     #print(a.get_effective_target_sdk_version())
     print(colored("\n Libraries: ",'yellow'),a.get_libraries())
-    print(colored("\n MAin Activities :",'yellow'),a.get_main_activity())
+    print(colored("\n Main Activities :",'yellow'),a.get_main_activity())
     print(colored("\n Receivers: ",'yellow'),a. get_receivers())
     print(colored("\n Permissions of third party apps: ",'yellow'),a.get_requested_third_party_permissions())
     print(colored("\n Services: ",'yellow'),a.get_services())
@@ -55,4 +57,13 @@ def Permissions_Classification():
     print(colored("\n The App is Signed? ",'yellow'),a. is_signed())
     print("")
 
-Permissions_Classification()
+#Permissions_Classification(MyApk)
+#####################
+def dump(MyApk):
+    package=""
+    a=apk.APK(MyApk)
+    package=a.get_package()
+    command="adb shell dumpsys appops --package "+package
+    os.system(command)
+#dump(MyApk)
+

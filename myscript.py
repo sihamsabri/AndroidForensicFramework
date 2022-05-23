@@ -4,13 +4,14 @@ import time
 from termcolor import colored
 import subprocess
 from androguard.core.bytecodes import apk
-from tabulate import tabulate
-import pandas as pd
+
+#from tabulate import tabulate
+#import pandas as pd
 
 #######################
 
 def Certificate_Validation():
-    apk="/root/96462df95b266d6f775967e5aa798d09.apk"   
+    apk="/home/osboxes/96462df95b266d6f775967e5aa798d09.apk"   
     command = "jarsigner -verify -verbose -certs "+apk
     output = subprocess.check_output(command, shell=True) 
     C=""
@@ -22,6 +23,9 @@ def Certificate_Validation():
         print(elm)
 
 Certificate_Validation()
+
+#########################################
+
 def test_androguard():
     permissions=[]
     Dangerous_Permissions = [ 'ACCESS_NETWORK_STATE','READ_CALENDAR','INTERNET', 'WRITE_CALENDAR', 'CAMERA', 'READ_CONTACTS', 'WRITE_CONTACTS', 
@@ -30,7 +34,7 @@ def test_androguard():
     Normal_Permissions = ['ACCESS_NOTIFICATION_POLICY', 'ACCESS_WIFI_STATE', 'BLUETOOTH', 'BLUETOOTH_ADMIN', 'INTERNET', 
                         'KILL_BACKGROUND_PROCESSES', 'MANAGE_OWN_CALLS', 'MODIFY_AUDIO_SETTINGS', 'SET_ALARM', 'SET_WALLPAPER', 'VIBRATE']
     
-    a = apk.APK("/root/96462df95b266d6f775967e5aa798d09.apk")
+    a = apk.APK("/home/osboxes/96462df95b266d6f775967e5aa798d09.apk")
     pk_name = a.get_package()
     L = a.get_permissions() 
 
@@ -55,6 +59,7 @@ def test_androguard():
         print("\n ",j,"=>",elm) 
         j=j+1
     print("")
+    
 test_androguard()
 ####################################Extraction##############################################
 ####################################Connection##############################################
@@ -91,7 +96,7 @@ def display_options():
     print(colored("  [2] : Configured Extraction (You can choose which part to extract)\n",'green'))
     print(colored("  [3] : Extract an apk file\n",'green'))
     print(colored("  [4] : Static Analysis => Extract Static Characteristics of an apk\n",'green'))
-    print(colored("  [5] : Static Analysis => Reverse Engineer an app\n",'green'))
+    print(colored("  [5] : Static Analysis => Reverse Engineer an apk\n",'green'))
     print(colored("  [6] : Dynamic Analysis\n",'green'))
     print(colored(">================================================================================================<",'blue'))
     print(colored(">================================================================================================<",'green'))

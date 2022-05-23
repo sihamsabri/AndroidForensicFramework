@@ -2,7 +2,7 @@ import os
 from Connection import *
 import sys
 import subprocess
-
+from androguard.core.bytecodes import *
 
 ########### adb installation ###########
 
@@ -32,7 +32,6 @@ def capture(android_ip):
     os.system(capture)
 #capture("10.224.138.248")
 ###############################################
-
 def capture0(android_ip):
 
     try:
@@ -45,4 +44,14 @@ def capture0(android_ip):
         print("tcpdump is not installed!")
         
 
-capture0("10.224.138.248")
+#capture0("10.224.138.248")
+####################################################
+apkfile="/home/osboxes/Framework/bootevent.apk"
+def dumpsys_service(apkfile):
+    package=""
+    a = apk.APK(apkfile)
+    package=a.get_package()
+    command="adb shell dumpsys appops --package "+package
+    os.system(command)
+
+dumpsys_service(apkfile)

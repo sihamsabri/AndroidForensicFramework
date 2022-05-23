@@ -87,6 +87,6 @@ def network_capture(android_ip):
     capture="sudo tcpdump "
     os.system(capture)
 
-network_capture("10.224.138.42")
+#network_capture("10.224.138.42")
 
 ################################################################################
