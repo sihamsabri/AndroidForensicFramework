@@ -47,38 +47,42 @@ while Framework:
     time.sleep(1)
     print("Before starting please fill in your information to add to the final report of the forensics analysis ")
 
-    #Reporter Information
+    #= Create a file + Add Reporter Information to the report
     time.sleep(1)
-    date=str(date.today())
+     
+    date=str((date.today()))
+
     time0=str(time.time())
     myfile=date+"_"+time0+"_report.txt"
     command="touch "+myfile
     os.system(command)
-    with open(myfile, 'w') as f:
-        f.write(' ')
-    Title=""
-    while Title=="":
-        Title=input("\n Give a title to your work ")
-    insert(myfile, 1,1, "Project title: "+Title)
-    First_name=""
-    while First_name=="":
-        First_name=input("\nFirst Name : ")
-    insert(myfile, 2, 1, "First Name : "+First_name)
-    time.sleep(1)
-    Last_name=""
-    while Last_name=="":
-        Last_name=input("\nLast Name : ")
-    time.sleep(1)
-    insert(myfile, 3, 1,"Last Name : "+Last_name)
-    Gmail=""
-    while Gmail=="":
-        Gmail=input("\nYour Mail:  ")
-    insert(myfile, 4, 1, "Email :"+Gmail) 
+    with open(myfile, "w") as f:
+        f.write("======Forensics Report======")
+        f.write(colored("\n ******** General Information ********",'green'))
+        Title=""
+        while Title=="":
+            Title=input("\n Give a title to your work ")
+        f.write(colored("\n\nProject title: ",'yellow')+Title)
+        First_name=""
+        while First_name=="":
+            First_name=input("\nFirst Name : ")
+        f.write(colored("\n\nFirst Name : ",'yellow')+First_name)
+
+        Last_name=""
+        while Last_name=="":
+            Last_name=input("\nLast Name : ")
+        f.write(colored("\n\nLast Name : ",'yellow')+Last_name)
+        Gmail=""
+        while Gmail=="":
+            Gmail=input("\nYour Mail:  ")
+        f.write(colored("\n\nEmail :",'yellow')+Gmail)
+        date_time=str(datetime.now())
+        f.write(colored("\n\nDate and time of investigation: ",'yellow')+date_time)
+
     #Give hand to the user to choose
+
     while UserChoice=="":
         UserChoice=input("\n\nPlease Choose your Option Number ! ")
-    now = datetime.now()
-    insert(myfile, 5, 1 ,"Date and Time of Investigation:"+str(now))
     if UserChoice =="2":
 
         print("!!! Static Analysis !!!")
@@ -90,7 +94,10 @@ while Framework:
 
                 while Apk=="":
                     Apk=input("!!! Please Enter the whole path of your APK !!!")
-                Permissions_Classification(Apk)
+                with open(myfile, "a") as f:
+                    f.write("\n")
+                    result=Permissions_Classification(Apk)
+                    f.write(result)
                 qst=""
                 qst=input("\n => To continue with Static Analysis Tap 1 \n => Press Any Key To Exit\n")
                 if qst=="1":

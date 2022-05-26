@@ -25,39 +25,22 @@ def Certificate_Validation():
 #Certificate_Validation()
 ##########################################################################
  
-#MyApk="/home/osboxes/Desktop/bootevent.apk"
+MyApk="/home/osboxes/Desktop/bootevent.apk"
 
 def Permissions_Classification(MyApk):
 
 
     
     a = apk.APK(MyApk)
-    print(colored("\n APK Validation ",'yellow'),a.is_valid_APK())
-    print(colored("\n App name: ",'yellow'),a.get_app_name())
-    print(colored("\n PAckage name : ",'yellow'),a. get_package())
-    print(colored("\n This apk contains the following files: ",'yellow'),a.get_files())
-
-    print(colored("\n<===> Detailed Description of Permissions: <===>\n",'yellow'))
     D=a.get_details_permissions()
-    for i in D :
-        print(" => ",colored(i[19:],'green')," : ",D[i],"\n")
+    mylist=""
+    for i in D:
+        mylist=mylist+"\n => "+colored(str(i[19:]),'green')+" : "+str(D[i])+" \n"
+    result=colored("\n\n************** Static Analysis **************\n\n",'green')+colored("\n\n APK Validation ",'yellow')+str((a.is_valid_APK()))+colored("\n\n App name: ",'yellow')+str((a.get_app_name()))+colored("\n\n PAckage name : ",'yellow')+str((a.get_package()))+colored("\n\n This apk contains the following files: ",'yellow')+str((a.get_files()))+colored("\n\n<===> Detailed Description of Permissions: <===>\n\n",'yellow')+str(mylist)+colored("\n\n Activities : ",'yellow')+str((a.get_activities()))+colored("\n\n Android Version Code ",'yellow')+str((a.get_androidversion_code()))+colored("\n\n Android Version name ",'yellow')+str((a.get_androidversion_name()))+colored("\n\n Libraries: ",'yellow')+str((a.get_libraries()))+colored("\n\n Main Activities :",'yellow')+str((a.get_main_activity()))+colored("\n\n Receivers: ",'yellow')+str((a. get_receivers()))+colored("\n\n Permissions of third party apps: ",'yellow')+str((a.get_requested_third_party_permissions()))+colored("\n\n Services: ",'yellow')+str((a.get_services()))+colored("\n\n Signature :",'yellow')+str((a.get_signatures()))+colored("\n\n Does the app require touch screen? ",'yellow')+str((a.is_androidtv()))+colored("\n\n The app is build for TV? ",'yellow')+str((a.is_leanback()))+colored("\n\n The App is Signed? ",'yellow')+str((a. is_signed()))
+    #print("")
+    return(result)
 
-    print(colored("\n Activities : ",'yellow'),a.get_activities())
-    print(colored("\n Android Version Code ",'yellow'),a.get_androidversion_code())
-    print(colored("\n Android Version name ",'yellow'),a.get_androidversion_name())
-    #print(a.get_effective_target_sdk_version())
-    print(colored("\n Libraries: ",'yellow'),a.get_libraries())
-    print(colored("\n Main Activities :",'yellow'),a.get_main_activity())
-    print(colored("\n Receivers: ",'yellow'),a. get_receivers())
-    print(colored("\n Permissions of third party apps: ",'yellow'),a.get_requested_third_party_permissions())
-    print(colored("\n Services: ",'yellow'),a.get_services())
-    print(colored("\n Signature :",'yellow'),a.get_signatures())
-    print(colored("\n Does the app require touch screen? ",'yellow'),a.is_androidtv())
-    print(colored("\n The app is build for TV? ",'yellow'),a.is_leanback())
-    print(colored("\n The App is Signed? ",'yellow'),a. is_signed())
-    print("")
-
-#Permissions_Classification(MyApk)
+#print(Permissions_Classification(MyApk))
 #####################
 def dump(MyApk):
     package=""
