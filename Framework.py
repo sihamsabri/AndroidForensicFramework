@@ -137,7 +137,8 @@ while Framework:
             print(colored(" ===---===---===Captures will start after ===---===---=== ",'green'),period,"secondes ")
             print(colored(' ===---===---===---===---===---===---===---===---===---===\n','blue'))
             time.sleep(int(period))
-        
+            with open(myfile, "a") as f:
+                f.write(colored("\n ********** Dynamic Analysis **********",'green'))
             print(colored("\n ===---=== Information About The Installed Package ===---===\n",'yellow'))
             time.sleep(4)
             package_Detailed_Information(apk)
