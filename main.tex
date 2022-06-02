@@ -1,0 +1,194 @@
+\documentclass[english,a4paper,12pt,oneside,openany]{report}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[toctitles]{titlesec}
+\usepackage{titletoc}
+
+
+\usepackage{mathptmx}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{3}
+\usepackage[footnote]{acronym}
+\usepackage[bottom]{footmisc}
+\usepackage{pdfpages}
+\usepackage{ifthen}
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[pdftex]{hyperref}
+\else
+\usepackage[hidelinks]{hyperref}
+\fi
+\usepackage{graphicx,wrapfig,lipsum}
+\usepackage[a4paper,left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{fontspec}
+\usepackage{xunicode} %% loading this first to avoid clash with bidi/arabic
+\usepackage{xcolor}
+%%% For language switching -- like babel, but for xelatex
+\usepackage{polyglossia}
+%pour les références bibliographiques
+\usepackage{biblatex}
+\addbibresource{references.bib}
+%%% For the xelatex (and other LaTeX friends) logos
+
+
+%%% For the awesome fontawesome icons!
+
+
+\setmainlanguage{english}
+
+\setotherlanguages{arabic} %% or other languages
+
+\usepackage{xcolor}
+\definecolor{quotemark}{gray}{0.7}
+\makeatletter
+\def\fquote{%
+	\@ifnextchar[{\fquote@i}{\fquote@i[]}%]
+}%
+\def\fquote@i[#1]{%
+	\def\tempa{#1}%
+	\@ifnextchar[{\fquote@ii}{\fquote@ii[]}%]
+}%
+\def\fquote@ii[#1]{%
+	\def\tempb{#1}%
+	\@ifnextchar[{\fquote@iii}{\fquote@iii[]}%]
+}%
+\def\fquote@iii[#1]{%
+	\def\tempc{#1}%
+	%
+	\noindent%
+	\begin{list}{}{%
+			\setlength{\leftmargin}{0.1\textwidth}%
+			\setlength{\rightmargin}{0.1\textwidth}%
+		}%
+		\item[]%
+		\begin{picture}(0,0)%
+			\put(-15,-5){\makebox(0,0){\scalebox{3}{\textcolor{quotemark}{``}}}}%
+		\end{picture}%
+		\begingroup\itshape}%
+	%%%%********************************************************************
+	\def\endfquote{%
+		\endgroup\par%
+		\makebox[0pt][l]{%
+			\hspace{0.8\textwidth}%
+			\begin{picture}(0,0)(0,0)%
+				\put(15,15){\makebox(0,0){%
+						\scalebox{3}{\color{quotemark}''}}}%
+		\end{picture}}%
+		\ifx\tempa\empty%
+		\else%
+		\ifx\tempc\empty%
+		\hfill\rule{100pt}{0.5pt}\\\mbox{}\hfill\tempa,\ \emph{\tempb}%
+		\else%
+		\hfill\rule{100pt}{0.5pt}\\\mbox{}\hfill\tempa,\ \emph{\tempb},\ \tempc%
+		\fi\fi\par%
+		\vspace{0.5em}%
+	\end{list}%
+}%
+\makeatother
+
+
+
+\makeatletter
+\newcommand{\enableopenany}{%
+	\@openrightfalse%
+}
+\newcommand{\disableopenany}{%
+	\@openrighttrue%
+}
+\makeatother
+\begin{document}
+
+	%%%%%%%%%%%%%%PDG%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\includepdf[pages=-]{00-Page-de-garde.pdf}
+
+%%%%%%%%%%%%%%PDG%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{\centering \textcolor[rgb]{0,0,0.55}{DEDICATIONS}}
+\addcontentsline{toc}{chapter}{DEDICATIONS}
+
+
+\begin{fquote}
+	\begin{center}
+		
+		hello word 
+		
+	\end{center}	
+\end{fquote}	
+
+
+
+
+\hspace*{\fill} \textbf{\textit{\large{- SABRI Siham}}}
+
+
+\chapter*{\centering \textcolor[rgb]{0,0,0.55}{ACKNOLEGEMNETS}}
+\addcontentsline{toc}{chapter}{ACKNOLEGEMENTS}
+
+
+Remerciement
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{\centering \textcolor[rgb]{0,0,0.55}{\MakeUppercase{Résumé}}}
+\addcontentsline{toc}{chapter}{RÉSUMÉ}
+Résumé
+
+\vspace{6.5cm}
+
+
+
+\noindent\rule[2pt]{\textwidth}{0.5pt}
+
+{\textbf{Mots clés:}}
+Cybersecurité, Collecte d'informations, Reconnaissance, Vulnerabilité, Automatisation.
+
+\noindent\rule[2pt]{\textwidth}{0.5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{\centering \textcolor[rgb]{0,0,0.55}{{ABSTRACT}}}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+Abstract
+
+	
+\vspace{6.5cm}
+
+\noindent\rule[2pt]{\textwidth}{0.5pt}
+
+{\textbf{Keywords :}}
+Cybersecurity, Information Gathering, Reconnaissance, Vulnerability, Automation.
+
+
+
+
+\noindent\rule[2pt]{\textwidth}{0.5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textcolor[rgb]{0,0,0.55}\tableofcontents
+\addcontentsline{toc}{chapter}{TABLE OF CONTENTS}
+\textcolor[rgb]{0,0,0.55}\listoffigures
+	\addcontentsline{toc}{chapter}{TABLE OF FIGURES}
+
+\include{acronyme}
+%%%%%%%%%%%%%%%%%%%%%%%%%%INTRO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{\centering \textcolor[rgb]{0,0,0.55}{{General Introduction}}}
+\addcontentsline{toc}{chapter}{General Introducation}
+
+Intro generale ch
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%CHAP2%%%%%%%%%%%%%%%%%%%%%%
+\input{chap1}
+\input{chap2}
+\input{chap3}
+\input{chap4}
+\input{conclusion}
+%\bibliography{references}
+%\bibliographystyle{abbrv}
+
+
+\end{document}
